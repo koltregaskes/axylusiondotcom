@@ -64,6 +64,7 @@
                 <a href="videos.html" class="nav-link">Videos</a>
                 <a href="music.html" class="nav-link">Music</a>
                 <a href="news.html" class="nav-link">News</a>
+                <a href="tools.html" class="nav-link">Tools</a>
                 <a href="about.html" class="nav-link">About</a>
             </nav>
             <div class="header-social">
@@ -90,50 +91,14 @@
         </div>
     </header>
 
-    <!-- Gallery Section -->
-    <section class="gallery-section" id="gallery">
-        <div class="section-header">
-            <h2 class="section-title">Gallery</h2>
-            <p class="section-subtitle">AI-generated artwork created with Midjourney</p>
+    <!-- Showcase Section - Full-screen scrolling images -->
+    <section class="showcase" id="gallery">
+        <div id="showcase-images">
+            <!-- Full-screen image panels loaded dynamically -->
         </div>
-
-        <div class="gallery-controls">
-            <div class="search-bar">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                </svg>
-                <input type="text" id="search" placeholder="Search artworks..." autocomplete="off">
-            </div>
-            <div class="filter-group">
-                <select id="type-filter">
-                    <option value="all">All Types</option>
-                    <option value="image">Images</option>
-                    <option value="video">Videos</option>
-                    <option value="music">Music</option>
-                </select>
-                <select id="date-filter">
-                    <option value="">All Time</option>
-                </select>
-                <select id="model-filter">
-                    <option value="">All Models</option>
-                </select>
-                <button id="reset-filters" class="reset-btn" title="Reset all filters">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-                        <path d="M3 3v5h5"/>
-                    </svg>
-                    Reset
-                </button>
-            </div>
+        <div class="showcase-footer">
+            <a href="gallery.html" class="cta-button primary">View Full Gallery</a>
         </div>
-
-        <main class="gallery" id="gallery-grid">
-            <!-- Items loaded dynamically -->
-        </main>
-
-        <nav class="pagination" id="pagination">
-            <!-- Pagination loaded dynamically -->
-        </nav>
     </section>
 
     <!-- About Section -->
@@ -210,32 +175,35 @@
 
     <script src="gallery.js"></script>
     <script>
-        // Hero section functionality
         (function() {
+            // --- Hero Section ---
             const heroImage = document.getElementById('hero-image');
             const featuredTitle = document.getElementById('featured-title');
             const heroDots = document.getElementById('hero-dots');
             const heroPrev = document.getElementById('hero-prev');
             const heroNext = document.getElementById('hero-next');
 
-            // Get featured items from gallery data (first 5 items)
             let featuredItems = [];
             let currentIndex = 0;
             let autoRotateInterval;
 
+            // Placeholder date used during batch import - hide these images
+            const PLACEHOLDER_DATE = '2026-02-10';
+
             function initHero() {
-                // Wait for gallery data to load
                 if (typeof embeddedData !== 'undefined' && embeddedData.items) {
-                    featuredItems = embeddedData.items.slice(0, 5);
+                    // Only show images with real creation dates
+                    const sorted = [...embeddedData.items]
+                        .filter(i => i.type === 'image' && i.created !== PLACEHOLDER_DATE)
+                        .sort((a, b) => new Date(b.created) - new Date(a.created));
+                    featuredItems = sorted.slice(0, 5);
                 } else {
-                    // Fallback - try again after a delay
                     setTimeout(initHero, 100);
                     return;
                 }
 
                 if (featuredItems.length === 0) return;
 
-                // Create dots
                 featuredItems.forEach((_, i) => {
                     const dot = document.createElement('button');
                     dot.className = 'dot' + (i === 0 ? ' active' : '');
@@ -244,131 +212,98 @@
                     heroDots.appendChild(dot);
                 });
 
-                // Show first item
                 showItem(0);
-
-                // Start auto-rotation
                 startAutoRotate();
+                initShowcase();
             }
 
             function showItem(index) {
                 if (!featuredItems[index]) return;
-
                 const item = featuredItems[index];
-
-                // Update background image with fade effect
                 heroImage.style.opacity = '0';
                 setTimeout(() => {
                     heroImage.style.backgroundImage = `url(${item.cdn_url})`;
                     heroImage.style.opacity = '1';
                 }, 300);
-
-                // Update title
                 featuredTitle.textContent = item.name;
-
-                // Update dots
                 const dots = heroDots.querySelectorAll('.dot');
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-
+                dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
                 currentIndex = index;
             }
 
-            function goToSlide(index) {
-                showItem(index);
-                resetAutoRotate();
-            }
+            function goToSlide(index) { showItem(index); resetAutoRotate(); }
+            function nextSlide() { showItem((currentIndex + 1) % featuredItems.length); }
+            function prevSlide() { showItem((currentIndex - 1 + featuredItems.length) % featuredItems.length); }
+            function startAutoRotate() { autoRotateInterval = setInterval(nextSlide, 5000); }
+            function resetAutoRotate() { clearInterval(autoRotateInterval); startAutoRotate(); }
 
-            function nextSlide() {
-                const next = (currentIndex + 1) % featuredItems.length;
-                showItem(next);
-            }
+            heroNext.addEventListener('click', () => { nextSlide(); resetAutoRotate(); });
+            heroPrev.addEventListener('click', () => { prevSlide(); resetAutoRotate(); });
 
-            function prevSlide() {
-                const prev = (currentIndex - 1 + featuredItems.length) % featuredItems.length;
-                showItem(prev);
-            }
-
-            function startAutoRotate() {
-                autoRotateInterval = setInterval(nextSlide, 5000);
-            }
-
-            function resetAutoRotate() {
-                clearInterval(autoRotateInterval);
-                startAutoRotate();
-            }
-
-            // Event listeners
-            heroNext.addEventListener('click', () => {
-                nextSlide();
-                resetAutoRotate();
-            });
-
-            heroPrev.addEventListener('click', () => {
-                prevSlide();
-                resetAutoRotate();
-            });
-
-            // Pause on hover
             const hero = document.getElementById('hero');
             hero.addEventListener('mouseenter', () => clearInterval(autoRotateInterval));
             hero.addEventListener('mouseleave', startAutoRotate);
 
-            // Initialize
             initHero();
 
-            // Sticky header on scroll with better UX
+            // --- Showcase: full-screen snap-scroll images ---
+            function initShowcase() {
+                const container = document.getElementById('showcase-images');
+                if (!container) return;
+
+                // Only show images with real creation dates, newest first
+                const allImages = embeddedData.items
+                    .filter(i => i.type === 'image' && i.created !== PLACEHOLDER_DATE)
+                    .sort((a, b) => new Date(b.created) - new Date(a.created));
+
+                // Show all images with real dates as full-screen panels
+                const showcaseItems = allImages;
+
+                container.innerHTML = showcaseItems.map(item => `
+                    <div class="showcase-panel" style="background-image: url(${item.cdn_url})">
+                        <div class="showcase-panel-info">
+                            <span class="showcase-panel-title">${item.name}</span>
+                            <span class="showcase-panel-date">${item.created || ''}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // --- Sticky Header ---
             const header = document.getElementById('header');
             const heroSection = document.getElementById('hero');
 
-            // Show header briefly on page load as a hint
             setTimeout(() => {
                 header.classList.add('peek');
-                setTimeout(() => {
-                    header.classList.remove('peek');
-                }, 3000); // Show for 3 seconds (longer for user to notice)
-            }, 1000); // Start after 1 second
+                setTimeout(() => header.classList.remove('peek'), 3000);
+            }, 1000);
 
-            // Track scroll direction for smart header reveal
             let lastScrollY = window.scrollY;
-            const SCROLL_THRESHOLD = 30; // Reduced for easier access
 
             window.addEventListener('scroll', () => {
                 const heroHeight = heroSection.offsetHeight;
                 const scrollingUp = window.scrollY < lastScrollY;
                 const scrolledPastHero = window.scrollY > heroHeight - 100;
 
-                // Always show header when scrolling up (if past minimal threshold)
-                // OR when past the hero section
-                if ((scrollingUp && window.scrollY > SCROLL_THRESHOLD) || scrolledPastHero) {
+                if ((scrollingUp && window.scrollY > 30) || scrolledPastHero) {
                     header.classList.add('sticky');
-                }
-                // Only hide when scrolling DOWN and still within hero section
-                else if (!scrollingUp && !scrolledPastHero) {
+                } else if (!scrollingUp && !scrolledPastHero) {
                     header.classList.remove('sticky');
                 }
-
                 lastScrollY = window.scrollY;
             });
 
-            // Smooth scroll for anchor links with header offset
+            // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     if (href === '#') return;
-
                     e.preventDefault();
                     const target = document.querySelector(href);
                     if (target) {
-                        // Calculate offset for sticky header
                         const headerHeight = header.classList.contains('sticky') ? 70 : 0;
                         const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
-
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                     }
                 });
             });

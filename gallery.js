@@ -26373,18 +26373,18 @@ function closeModal(pushHistory = true) {
     }
 }
 
-// Event listeners
-closeBtn.addEventListener('click', () => closeModal());
-prevBtn.addEventListener('click', showPrevious);
-nextBtn.addEventListener('click', showNext);
+// Event listeners - guard for pages where modal elements may not exist
+if (closeBtn) closeBtn.addEventListener('click', () => closeModal());
+if (prevBtn) prevBtn.addEventListener('click', showPrevious);
+if (nextBtn) nextBtn.addEventListener('click', showNext);
 
-modal.addEventListener('click', (e) => {
+if (modal) modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
 });
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
-    if (!modal.classList.contains('active')) return;
+    if (!modal || !modal.classList.contains('active')) return;
 
     if (e.key === 'Escape') closeModal();
     if (e.key === 'ArrowLeft') showPrevious();
@@ -26395,7 +26395,7 @@ document.addEventListener('keydown', (e) => {
 let scrollAccumulator = 0;
 const SCROLL_THRESHOLD = 300; // Increased for more subtle transitions // Pixels of scroll before changing image (prevents too-fast scrolling)
 
-modal.addEventListener('wheel', (e) => {
+if (modal) modal.addEventListener('wheel', (e) => {
     if (!modal.classList.contains('active')) return;
 
     // Check if cursor is over the image area or the metadata area
@@ -26425,44 +26425,49 @@ modal.addEventListener('wheel', (e) => {
     // This allows users to scroll down to see prompt and parameters
 }, { passive: false });
 
-// Search and filter listeners with debounce
-let searchTimeout;
-searchInput.addEventListener('input', () => {
-    clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
+// Only set up gallery controls if gallery grid exists on this page
+if (gallery) {
+    // Search and filter listeners with debounce
+    let searchTimeout;
+    if (searchInput) searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            currentPage = 1;
+            renderGallery();
+        }, 200);
+    });
+
+    if (typeFilter) typeFilter.addEventListener('change', () => {
         currentPage = 1;
         renderGallery();
-    }, 200);
-});
+    });
 
-typeFilter.addEventListener('change', () => {
-    currentPage = 1;
-    renderGallery();
-});
+    if (dateFilter) dateFilter.addEventListener('change', () => {
+        currentPage = 1;
+        renderGallery();
+    });
 
-dateFilter.addEventListener('change', () => {
-    currentPage = 1;
-    renderGallery();
-});
+    if (modelFilter) modelFilter.addEventListener('change', () => {
+        currentPage = 1;
+        renderGallery();
+    });
 
-modelFilter.addEventListener('change', () => {
-    currentPage = 1;
-    renderGallery();
-});
-if (sortFilter) {    sortFilter.addEventListener("change", () => {        currentPage = 1;        renderGallery();    });}if (aspectFilter) {    aspectFilter.addEventListener("change", () => {        currentPage = 1;        renderGallery();    });}
+    if (sortFilter) sortFilter.addEventListener("change", () => { currentPage = 1; renderGallery(); });
+    if (aspectFilter) aspectFilter.addEventListener("change", () => { currentPage = 1; renderGallery(); });
 
-// Reset all filters
-resetBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    typeFilter.value = 'all';
-    dateFilter.value = '';
-    modelFilter.value = "";
-    if (sortFilter) sortFilter.value = "newest";
-    if (aspectFilter) aspectFilter.value = "";
-    activeTag = null;
-    currentPage = 1;
-    renderGallery();
-});
+    // Reset all filters
+    if (resetBtn) resetBtn.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        if (typeFilter) typeFilter.value = 'all';
+        if (dateFilter) dateFilter.value = '';
+        if (modelFilter) modelFilter.value = "";
+        if (sortFilter) sortFilter.value = "newest";
+        if (aspectFilter) aspectFilter.value = "";
+        activeTag = null;
+        currentPage = 1;
+        renderGallery();
+    });
 
-// Initialize
-loadData();
+    // Initialize
+    loadData();
+}

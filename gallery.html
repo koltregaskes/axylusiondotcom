@@ -23,6 +23,7 @@
                 <a href="videos.html" class="nav-link">Videos</a>
                 <a href="music.html" class="nav-link">Music</a>
                 <a href="news.html" class="nav-link">News</a>
+                <a href="tools.html" class="nav-link">Tools</a>
                 <a href="about.html" class="nav-link">About</a>
             </nav>
             <div class="header-social">
@@ -241,10 +242,14 @@
             const prevBtn = document.getElementById('modal-prev');
             const nextBtn = document.getElementById('modal-next');
 
+            // Placeholder date used during batch import - hide these images
+            const PLACEHOLDER_DATE = '2026-02-10';
+
             // Initialize
             function init() {
                 if (typeof embeddedData !== 'undefined' && embeddedData.items) {
-                    allItems = embeddedData.items;
+                    // Only show images with real creation dates
+                    allItems = embeddedData.items.filter(i => i.created !== PLACEHOLDER_DATE);
                     totalCount.textContent = allItems.length.toLocaleString();
                     populateModelFilter();
                     applyFilters();

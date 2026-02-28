@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tools News | Axy Lusion</title>
-    <meta name="description" content="Latest news and updates from the AI creative tools world - Midjourney, Suno, Runway, and more.">
-    <meta property="og:title" content="AI Tools News | Axy Lusion">
-    <meta property="og:description" content="Latest AI creative tools news and updates">
+    <title>AI News | Axy Lusion</title>
+    <meta name="description" content="Daily AI news digest - the latest from the world of artificial intelligence, creative tools, and the AI industry.">
+    <meta property="og:title" content="AI News | Axy Lusion">
+    <meta property="og:description" content="Daily AI news digest from Axy Lusion">
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://axylusion.com/news">
     <link rel="stylesheet" href="styles.css">
@@ -23,6 +23,7 @@
                 <a href="videos.html" class="nav-link">Videos</a>
                 <a href="music.html" class="nav-link">Music</a>
                 <a href="news.html" class="nav-link active">News</a>
+                <a href="tools.html" class="nav-link">Tools</a>
                 <a href="about.html" class="nav-link">About</a>
             </nav>
             <div class="header-social">
@@ -52,320 +53,69 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="page-header-content">
-            <h1 class="page-title stagger-load delay-1">AI Creative Tools News</h1>
-            <p class="page-subtitle stagger-load delay-2">The latest from Midjourney, Suno, Runway, and the AI creative world</p>
+            <h1 class="page-title stagger-load delay-1">AI News</h1>
+            <p class="page-subtitle stagger-load delay-2">Daily digest from 60+ AI sources</p>
         </div>
     </section>
 
-    <!-- News Feed -->
-    <main class="news-feed">
+    <!-- News Layout -->
+    <main class="an-layout">
+        <!-- Sidebar -->
+        <aside class="an-sidebar">
+            <div class="an-sidebar-section">
+                <h3>Search</h3>
+                <input type="text" id="searchInput" class="an-search" placeholder="Search articles...">
+            </div>
 
-        <!-- Featured / Highlight Story -->
-        <section class="news-featured stagger-load delay-3">
-            <div class="news-featured-card">
-                <div class="news-featured-badge">Featured</div>
-                <div class="news-featured-body">
-                    <div class="news-source-row">
-                        <span class="news-source">Midjourney</span>
-                        <span class="news-date">February 2026</span>
-                    </div>
-                    <h2 class="news-featured-title">Midjourney v7 Continues to Evolve</h2>
-                    <p class="news-featured-excerpt">Midjourney's latest model version brings significant improvements to photorealism, coherence, and prompt understanding. The v7 model has become the default for all new generations, with enhanced handling of complex compositions, better text rendering, and more faithful prompt adherence. The community continues to push creative boundaries with the new capabilities.</p>
-                    <div class="news-tags">
-                        <span class="news-tag">Midjourney</span>
-                        <span class="news-tag">Image Generation</span>
-                        <span class="news-tag">AI Art</span>
-                    </div>
+            <div class="an-sidebar-section">
+                <h3>Date Range</h3>
+                <div class="an-quick-filters">
+                    <button id="quick24h" class="an-quick-btn">24h</button>
+                    <button id="quickLastWeek" class="an-quick-btn">7 Days</button>
+                    <button id="quickAll" class="an-quick-btn">All</button>
+                </div>
+                <div class="an-date-inputs">
+                    <input type="date" id="fromDate" class="an-date-input">
+                    <span>to</span>
+                    <input type="date" id="toDate" class="an-date-input">
                 </div>
             </div>
-        </section>
 
-        <!-- Tool Updates Section -->
-        <section class="news-section stagger-load delay-4">
-            <div class="news-section-header">
-                <div class="news-section-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/></svg>
-                </div>
-                <h2 class="news-section-title">Tool Updates</h2>
-                <p class="news-section-desc">Latest releases and features from AI creative platforms</p>
+            <div class="an-sidebar-section">
+                <h3>Group By</h3>
+                <select id="groupBy" class="an-select">
+                    <option value="date">Date</option>
+                    <option value="source">Source</option>
+                </select>
             </div>
-            <div class="news-grid">
 
-                <article class="news-card">
-                    <div class="news-card-header">
-                        <span class="news-card-source midjourney">Midjourney</span>
-                        <time class="news-card-date">Feb 2026</time>
-                    </div>
-                    <h3 class="news-card-title">Midjourney Web Editor Gets Major Update</h3>
-                    <p class="news-card-excerpt">The web-based editor now supports inpainting, outpainting, and style reference uploads directly in the browser. Real-time previews and an improved UI make iterating on images faster than ever.</p>
-                    <div class="news-card-tags">
-                        <span class="news-tag-sm">Editor</span>
-                        <span class="news-tag-sm">Inpainting</span>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="news-card-header">
-                        <span class="news-card-source suno">Suno</span>
-                        <time class="news-card-date">Feb 2026</time>
-                    </div>
-                    <h3 class="news-card-title">Suno v4.5 Brings Longer Tracks and Better Vocals</h3>
-                    <p class="news-card-excerpt">Suno's latest model update enables full-length songs up to 5 minutes with improved vocal clarity, better genre consistency, and more natural transitions between verses and choruses.</p>
-                    <div class="news-card-tags">
-                        <span class="news-tag-sm">Music AI</span>
-                        <span class="news-tag-sm">Vocals</span>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="news-card-header">
-                        <span class="news-card-source runway">Runway</span>
-                        <time class="news-card-date">Feb 2026</time>
-                    </div>
-                    <h3 class="news-card-title">Runway Gen-4 Turbo for Faster Video Generation</h3>
-                    <p class="news-card-excerpt">Runway launches Gen-4 Turbo, generating 10-second clips in under 30 seconds. Improved motion consistency and camera control make it a serious tool for professional video workflows.</p>
-                    <div class="news-card-tags">
-                        <span class="news-tag-sm">Video AI</span>
-                        <span class="news-tag-sm">Gen-4</span>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="news-card-header">
-                        <span class="news-card-source kling">Kling</span>
-                        <time class="news-card-date">Feb 2026</time>
-                    </div>
-                    <h3 class="news-card-title">Kling 2.0 Expands to Global Markets</h3>
-                    <p class="news-card-excerpt">Kuaishou's Kling video model is now widely available internationally, with improved English prompt understanding and competitive pricing that undercuts Western alternatives.</p>
-                    <div class="news-card-tags">
-                        <span class="news-tag-sm">Video AI</span>
-                        <span class="news-tag-sm">Kling</span>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="news-card-header">
-                        <span class="news-card-source pika">Pika</span>
-                        <time class="news-card-date">Jan 2026</time>
-                    </div>
-                    <h3 class="news-card-title">Pika 2.2 Adds Scene Editing and Lip Sync</h3>
-                    <p class="news-card-excerpt">Pika's latest update introduces scene-level editing controls and audio-driven lip sync, allowing creators to combine AI video generation with voiceover and dialogue more seamlessly.</p>
-                    <div class="news-card-tags">
-                        <span class="news-tag-sm">Video AI</span>
-                        <span class="news-tag-sm">Lip Sync</span>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="news-card-header">
-                        <span class="news-card-source luma">Luma</span>
-                        <time class="news-card-date">Jan 2026</time>
-                    </div>
-                    <h3 class="news-card-title">Luma Dream Machine 2 Enters Beta</h3>
-                    <p class="news-card-excerpt">Luma's next-generation video model promises 4K output, improved physics simulation, and multi-shot consistency. The beta is rolling out to existing Dream Machine subscribers first.</p>
-                    <div class="news-card-tags">
-                        <span class="news-tag-sm">Video AI</span>
-                        <span class="news-tag-sm">4K</span>
-                    </div>
-                </article>
-
+            <div class="an-sidebar-section">
+                <h3>Sources</h3>
+                <div id="sourceCheckboxes" class="an-source-list"></div>
             </div>
-        </section>
 
-        <!-- Industry News Section -->
-        <section class="news-section">
-            <div class="news-section-header">
-                <div class="news-section-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"/></svg>
-                </div>
-                <h2 class="news-section-title">Industry News</h2>
-                <p class="news-section-desc">What's happening in the AI creative space</p>
+            <button id="clearFilters" class="an-clear-btn">Clear Filters</button>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="an-main">
+            <div id="filterSummary" class="an-filter-summary" style="display: none;">
+                <span id="filterSummaryText"></span>
             </div>
-            <div class="news-list">
 
-                <article class="news-list-item">
-                    <div class="news-list-meta">
-                        <span class="news-list-source">TechCrunch</span>
-                        <time class="news-list-date">7 Feb 2026</time>
-                    </div>
-                    <h3 class="news-list-title">New York Lawmakers Propose Three-Year Pause on New Data Centers</h3>
-                    <p class="news-list-excerpt">New York is at least the sixth state to consider pausing construction of new data centers, with implications for AI compute infrastructure and the creative tools that depend on it.</p>
-                </article>
-
-                <article class="news-list-item">
-                    <div class="news-list-meta">
-                        <span class="news-list-source">TechCrunch</span>
-                        <time class="news-list-date">6 Feb 2026</time>
-                    </div>
-                    <h3 class="news-list-title">From Svedka to Anthropic, Brands Make Bold Plays with AI in Super Bowl Ads</h3>
-                    <p class="news-list-excerpt">From the first AI-generated Big Game ad courtesy of Svedka to Anthropic's beef with OpenAI, Super Bowl LX brought AI front and centre in advertising.</p>
-                </article>
-
-                <article class="news-list-item">
-                    <div class="news-list-meta">
-                        <span class="news-list-source">TechCrunch</span>
-                        <time class="news-list-date">6 Feb 2026</time>
-                    </div>
-                    <h3 class="news-list-title">The Backlash Over OpenAI's Decision to Retire GPT-4o Shows How Attached Users Get to AI</h3>
-                    <p class="news-list-excerpt">Users grew emotionally attached to GPT-4o's personality, raising questions about the relationship between humans and AI companions as models get retired and replaced.</p>
-                </article>
-
-                <article class="news-list-item">
-                    <div class="news-list-meta">
-                        <span class="news-list-source">TechCrunch</span>
-                        <time class="news-list-date">5 Feb 2026</time>
-                    </div>
-                    <h3 class="news-list-title">Amazon and Google Are Winning the AI Capex Race</h3>
-                    <p class="news-list-excerpt">In 2026, Amazon plans to spend $200 billion in capex, Google $175-185 billion. The massive investment race signals just how central AI infrastructure has become.</p>
-                </article>
-
-                <article class="news-list-item">
-                    <div class="news-list-meta">
-                        <span class="news-list-source">TechCrunch</span>
-                        <time class="news-list-date">5 Feb 2026</time>
-                    </div>
-                    <h3 class="news-list-title">Reddit Looks to AI Search as Its Next Big Opportunity</h3>
-                    <p class="news-list-excerpt">Reddit offered an update on its plans to merge traditional and AI search together, hinting that AI search monetisation is on the horizon.</p>
-                </article>
-
-                <article class="news-list-item">
-                    <div class="news-list-meta">
-                        <span class="news-list-source">Various</span>
-                        <time class="news-list-date">5 Feb 2026</time>
-                    </div>
-                    <h3 class="news-list-title">Elon Musk Getting Serious About Orbital Data Centers</h3>
-                    <p class="news-list-excerpt">The merger of xAI and SpaceX is coalescing into actual plans for orbital AI data clusters, pitching them as a cheaper alternative to terrestrial compute.</p>
-                </article>
-
+            <div id="loading" class="an-loading">
+                <div class="an-spinner"></div>
+                <p>Loading news articles...</p>
             </div>
-        </section>
 
-        <!-- YouTube Highlights Section -->
-        <section class="news-section">
-            <div class="news-section-header">
-                <div class="news-section-icon">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                </div>
-                <h2 class="news-section-title">YouTube Highlights</h2>
-                <p class="news-section-desc">Recommended AI creative channels and recent videos</p>
+            <div id="articlesContainer"></div>
+
+            <div id="noResults" class="an-no-results" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48"><path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                <p>No articles found matching your filters.</p>
+                <button onclick="document.getElementById('clearFilters').click()">Clear Filters</button>
             </div>
-            <div class="news-grid news-grid-compact">
-
-                <a href="https://www.youtube.com/@PromptEngineering" target="_blank" class="news-yt-card">
-                    <div class="news-yt-channel">Prompt Engineering</div>
-                    <h3 class="news-yt-title">Claude Code's New Agents Team Are Absolutely Insane</h3>
-                    <span class="news-yt-meta">AI Development</span>
-                </a>
-
-                <a href="https://www.youtube.com/@matthew_berman" target="_blank" class="news-yt-card">
-                    <div class="news-yt-channel">Matthew Berman</div>
-                    <h3 class="news-yt-title">GPUs Are Cooked - Analysis of the GPU Shortage Crisis</h3>
-                    <span class="news-yt-meta">Hardware</span>
-                </a>
-
-                <a href="https://www.youtube.com/@TheAIDailyBrief" target="_blank" class="news-yt-card">
-                    <div class="news-yt-channel">The AI Daily Brief</div>
-                    <h3 class="news-yt-title">No One Wins This AI Super Bowl</h3>
-                    <span class="news-yt-meta">Industry Analysis</span>
-                </a>
-
-                <a href="https://www.youtube.com/@LinusEkenstam" target="_blank" class="news-yt-card">
-                    <div class="news-yt-channel">Linus Ekenstam</div>
-                    <h3 class="news-yt-title">Generate Unlimited Cinematic Videos</h3>
-                    <span class="news-yt-meta">Creative Tools</span>
-                </a>
-
-                <a href="https://www.youtube.com/@CognitiveRevolutionPodcast" target="_blank" class="news-yt-card">
-                    <div class="news-yt-channel">Cognitive Revolution</div>
-                    <h3 class="news-yt-title">AGI-Pilled Cyber Defense</h3>
-                    <span class="news-yt-meta">AI Security</span>
-                </a>
-
-                <a href="https://www.youtube.com/@DwarkeshPatel" target="_blank" class="news-yt-card">
-                    <div class="news-yt-channel">Dwarkesh Patel</div>
-                    <h3 class="news-yt-title">The Only Thing That Can Solve The US Debt</h3>
-                    <span class="news-yt-meta">AI & Economics</span>
-                </a>
-
-            </div>
-        </section>
-
-        <!-- Tools We Use Section -->
-        <section class="news-section news-tools-section">
-            <div class="news-section-header">
-                <div class="news-section-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
-                </div>
-                <h2 class="news-section-title">Tools We Use</h2>
-                <p class="news-section-desc">The AI creative platforms behind Axy Lusion</p>
-            </div>
-            <div class="news-tools-grid">
-
-                <a href="https://www.midjourney.com/@axylusion" target="_blank" class="news-tool-card">
-                    <div class="news-tool-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.653 2.026C6.073 3.06 8.69 4.941 10.8 7.258c2.46 2.7 4.109 5.828 4.637 9.149a.31.31 0 01-.421.335c-2.348-.945-4.54-1.258-6.59-1.02-1.739.2-3.337.792-4.816 1.703-.294.182-.62-.182-.405-.454 1.856-2.355 2.581-4.99 2.343-7.794-.195-2.292-1.031-4.61-2.284-6.709a.31.31 0 01.388-.442zm6.387 2.424c1.778.543 3.892 2.102 5.782 4.243 1.984 2.248 3.552 4.934 4.347 7.582a.31.31 0 01-.401.38l-.022-.01-.386-.154a10.6 10.6 0 00-.291-.112l-.016-.006c-.68-.247-1.199-.291-1.944-.101a.31.31 0 01-.375-.218C15.378 11.123 13.073 7.276 9.775 5c-.291-.201-.072-.653.266-.55z"/></svg>
-                    </div>
-                    <div class="news-tool-info">
-                        <h3 class="news-tool-name">Midjourney</h3>
-                        <p class="news-tool-desc">AI image generation — the core of our gallery</p>
-                    </div>
-                    <span class="news-tool-version">v7</span>
-                </a>
-
-                <a href="https://suno.com/@axylusion" target="_blank" class="news-tool-card">
-                    <div class="news-tool-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 14.5c0 .83-.67 1.5-1.5 1.5h-4c-.83 0-1.5-.67-1.5-1.5v-1c0-.83.67-1.5 1.5-1.5H14v-2h-4v1H8v-1c0-.83.67-1.5 1.5-1.5h4c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5H10v2h4v-1h1.5v1z"/></svg>
-                    </div>
-                    <div class="news-tool-info">
-                        <h3 class="news-tool-name">Suno</h3>
-                        <p class="news-tool-desc">AI music generation — original tracks and soundscapes</p>
-                    </div>
-                    <span class="news-tool-version">v4.5</span>
-                </a>
-
-                <a href="https://runwayml.com" target="_blank" class="news-tool-card">
-                    <div class="news-tool-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0118 18.375M20.625 4.5H3.375m17.25 0c.621 0 1.125.504 1.125 1.125M20.625 4.5h-1.5C18.504 4.5 18 5.004 18 5.625m3.75 0v1.5c0 .621-.504 1.125-1.125 1.125M3.375 4.5c-.621 0-1.125.504-1.125 1.125M3.375 4.5h1.5C5.496 4.5 6 5.004 6 5.625m-3.75 0v1.5c0 .621.504 1.125 1.125 1.125m0 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.5-3.75C5.496 8.25 6 7.746 6 7.125v-1.5M4.875 8.25C5.496 8.25 6 8.754 6 9.375v1.5m0-5.25v5.25m0-5.25C6 5.004 6.504 4.5 7.125 4.5h9.75c.621 0 1.125.504 1.125 1.125m1.125 2.625h1.5m-1.5 0A1.125 1.125 0 0118 7.125v-1.5m1.125 2.625c-.621 0-1.125.504-1.125 1.125v1.5m2.625-2.625c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M18 5.625v5.25M7.125 12h9.75m-9.75 0A1.125 1.125 0 016 10.875M7.125 12C6.504 12 6 12.504 6 13.125m0-2.25C6 11.496 5.496 12 4.875 12M18 10.875c0 .621-.504 1.125-1.125 1.125M18 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m-12 5.25v-5.25m0 5.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125m-12 0v-1.5c0-.621-.504-1.125-1.125-1.125M18 18.375v-5.25m0 5.25v-1.5c0-.621.504-1.125 1.125-1.125M18 13.125v1.5c0 .621.504 1.125 1.125 1.125M18 13.125c0-.621.504-1.125 1.125-1.125M6 13.125v1.5c0 .621-.504 1.125-1.125 1.125M6 13.125C6 12.504 5.496 12 4.875 12m-1.5 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M19.125 12h1.5m0 0c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h1.5m14.25 0h1.5"/></svg>
-                    </div>
-                    <div class="news-tool-info">
-                        <h3 class="news-tool-name">Runway</h3>
-                        <p class="news-tool-desc">AI video generation — cinematic motion from text and image</p>
-                    </div>
-                    <span class="news-tool-version">Gen-4</span>
-                </a>
-
-                <a href="https://klingai.com" target="_blank" class="news-tool-card">
-                    <div class="news-tool-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/></svg>
-                    </div>
-                    <div class="news-tool-info">
-                        <h3 class="news-tool-name">Kling</h3>
-                        <p class="news-tool-desc">AI video — impressive motion and physics simulation</p>
-                    </div>
-                    <span class="news-tool-version">2.0</span>
-                </a>
-
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="news-cta-section">
-            <div class="news-cta-content">
-                <h2>Stay in the Loop</h2>
-                <p>Follow Axy Lusion on social media for the latest AI creative work and tool updates</p>
-                <div class="news-cta-links">
-                    <a href="https://x.com/Axylusion" target="_blank" class="cta-button primary">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                        Follow on X
-                    </a>
-                    <a href="https://www.youtube.com/@AxyLusion" target="_blank" class="cta-button secondary">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        Subscribe on YouTube
-                    </a>
-                </div>
-            </div>
-        </section>
-
+        </div>
     </main>
 
     <!-- Footer -->
@@ -398,5 +148,7 @@
             <p class="footer-copyright">&copy; 2026 <a href="https://koltregaskes.com" target="_blank">Kol Tregaskes</a></p>
         </div>
     </footer>
+
+    <script src="news-app.js"></script>
 </body>
 </html>
