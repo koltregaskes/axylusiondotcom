@@ -11,7 +11,7 @@ class NewsApp {
         this.sources = new Set();
         this.favorites = new Set(JSON.parse(localStorage.getItem('axyl-news-favorites') || '[]'));
         this.flags = JSON.parse(localStorage.getItem('axyl-news-flags') || '{}');
-        this.creativeFilter = true; // Default: show only creative AI content
+        // Only these tags qualify as creative AI content
         this.creativeTags = new Set(['image', 'video', 'audio', 'creative', '3d', 'design']);
         this.init();
     }
@@ -108,6 +108,9 @@ class NewsApp {
 
                 const source = sourceName.trim() || this.extractSource(url);
                 const tags = this.generateTags(title, summary.trim());
+
+                // Only include articles with at least one creative AI tag
+                if (!tags.some(tag => this.creativeTags.has(tag))) continue;
 
                 let articleDate = fileDate;
                 let articleDateString = dateString;
@@ -226,20 +229,10 @@ class NewsApp {
         const quickLastWeek = document.getElementById('quickLastWeek');
         const quickAll = document.getElementById('quickAll');
         const groupBy = document.getElementById('groupBy');
-        const creativeToggle = document.getElementById('creativeToggle');
 
         if (searchInput) searchInput.addEventListener('input', () => this.filterArticles());
         if (fromDate) fromDate.addEventListener('change', () => { this.updateQuickFilterButtons(); this.filterArticles(); });
         if (toDate) toDate.addEventListener('change', () => { this.updateQuickFilterButtons(); this.filterArticles(); });
-
-        if (creativeToggle) {
-            creativeToggle.classList.add('active');
-            creativeToggle.addEventListener('click', () => {
-                this.creativeFilter = !this.creativeFilter;
-                creativeToggle.classList.toggle('active', this.creativeFilter);
-                this.filterArticles();
-            });
-        }
         if (sourceContainer) sourceContainer.addEventListener('change', () => this.filterArticles());
         if (groupBy) groupBy.addEventListener('change', () => this.displayArticles());
 
@@ -276,8 +269,6 @@ class NewsApp {
             if (fromDate) fromDate.value = '';
             if (toDate) toDate.value = '';
             document.querySelectorAll('#sourceCheckboxes input').forEach(cb => cb.checked = true);
-            this.creativeFilter = false;
-            if (creativeToggle) creativeToggle.classList.remove('active');
             this.updateQuickFilterButtons('all');
             this.filterArticles();
         });
@@ -314,10 +305,7 @@ class NewsApp {
 
             const matchesSource = selectedSources.length === 0 || selectedSources.includes(article.source);
 
-            const matchesCreative = !this.creativeFilter ||
-                article.tags.some(tag => this.creativeTags.has(tag));
-
-            return matchesSearch && matchesRange && matchesSource && matchesCreative;
+            return matchesSearch && matchesRange && matchesSource;
         });
 
         this.updateFilterSummary();

@@ -3231,41 +3231,6 @@ footer a:hover {
     cursor: pointer;
 }
 
-/* Clear Button */
-.an-creative-toggle {
-    width: 100%;
-    padding: 0.625rem 1rem;
-    background: transparent;
-    border: 1px solid var(--axyl-gray-700);
-    border-radius: var(--radius-md);
-    color: var(--axyl-gray-400);
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: center;
-}
-
-.an-creative-toggle.active {
-    background: var(--axyl-amber);
-    border-color: var(--axyl-amber);
-    color: var(--axyl-black);
-    font-weight: 600;
-}
-
-.an-creative-toggle:hover {
-    border-color: var(--axyl-amber);
-    color: var(--axyl-amber);
-}
-
-.an-creative-toggle.active:hover {
-    background: var(--axyl-amber-light);
-    color: var(--axyl-black);
-}
-
 .an-clear-btn {
     width: 100%;
     padding: 0.625rem 1rem;
