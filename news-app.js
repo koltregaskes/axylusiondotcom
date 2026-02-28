@@ -11,6 +11,8 @@ class NewsApp {
         this.sources = new Set();
         this.favorites = new Set(JSON.parse(localStorage.getItem('axyl-news-favorites') || '[]'));
         this.flags = JSON.parse(localStorage.getItem('axyl-news-flags') || '{}');
+        this.creativeFilter = true; // Default: show only creative AI content
+        this.creativeTags = new Set(['image', 'video', 'audio', 'creative', '3d', 'design']);
         this.init();
     }
 
@@ -105,7 +107,7 @@ class NewsApp {
                 if (this.isJunkItem(title, url)) continue;
 
                 const source = sourceName.trim() || this.extractSource(url);
-                const tags = this.generateTags(title);
+                const tags = this.generateTags(title, summary.trim());
 
                 let articleDate = fileDate;
                 let articleDateString = dateString;
@@ -147,7 +149,8 @@ class NewsApp {
         return false;
     }
 
-    generateTags(title) {
+    generateTags(title, summary) {
+        const text = `${title} ${summary || ''}`;
         const tagPatterns = {
             'agents': /\b(agent|agents|agentic)\b/i,
             'models': /\b(gpt|claude|gemini|llama|mistral|model|llm|foundation)\b/i,
@@ -157,17 +160,20 @@ class NewsApp {
             'open-source': /\b(open source|open-source|opensource|github|hugging face)\b/i,
             'safety': /\b(safety|alignment|ethics|regulation|govern|policy)\b/i,
             'robotics': /\b(robot|robotics|hardware|humanoid|physical)\b/i,
-            'image': /\b(image|midjourney|dall-e|stable diffusion|flux)\b/i,
-            'video': /\b(video|runway|kling|pika|sora|luma|veo)\b/i,
-            'audio': /\b(voice|speech|audio|sound|music|suno|elevenlabs)\b/i,
-            'coding': /\b(code|coding|developer|programming|copilot|codex)\b/i
+            'image': /\b(image|images|imaging|midjourney|dall-e|dall·e|stable diffusion|flux|ideogram|leonardo|firefly|photoshop|illustration|portrait|artwork|art\b|artis)/i,
+            'video': /\b(video|videos|runway|kling|pika|sora|luma|veo|animate|animation|film|cinema|minimax|hailuo|gen-3)\b/i,
+            'audio': /\b(voice|speech|audio|sound|music|suno|elevenlabs|udio|singing|song|tts|text.to.speech)\b/i,
+            'coding': /\b(code|coding|developer|programming|copilot|codex)\b/i,
+            'creative': /\b(creative|creativ|generat.*art|generat.*image|generat.*video|generat.*music|ai.art|ai.music|ai.video|ai.film|visual|render|3d|comfyui|diffusion|gan\b|style.transfer)/i,
+            '3d': /\b(3d|blender|unreal|unity|mesh|texture|rendering|cgi|vfx)\b/i,
+            'design': /\b(design|figma|canva|adobe|photoshop|graphic|typography|ui.ux)\b/i
         };
         const tags = [];
         for (const [tag, pattern] of Object.entries(tagPatterns)) {
-            if (pattern.test(title)) tags.push(tag);
+            if (pattern.test(text)) tags.push(tag);
         }
         if (tags.length === 0) tags.push('news');
-        return tags.slice(0, 4);
+        return tags.slice(0, 5);
     }
 
     extractSource(url) {
@@ -220,10 +226,20 @@ class NewsApp {
         const quickLastWeek = document.getElementById('quickLastWeek');
         const quickAll = document.getElementById('quickAll');
         const groupBy = document.getElementById('groupBy');
+        const creativeToggle = document.getElementById('creativeToggle');
 
         if (searchInput) searchInput.addEventListener('input', () => this.filterArticles());
         if (fromDate) fromDate.addEventListener('change', () => { this.updateQuickFilterButtons(); this.filterArticles(); });
         if (toDate) toDate.addEventListener('change', () => { this.updateQuickFilterButtons(); this.filterArticles(); });
+
+        if (creativeToggle) {
+            creativeToggle.classList.add('active');
+            creativeToggle.addEventListener('click', () => {
+                this.creativeFilter = !this.creativeFilter;
+                creativeToggle.classList.toggle('active', this.creativeFilter);
+                this.filterArticles();
+            });
+        }
         if (sourceContainer) sourceContainer.addEventListener('change', () => this.filterArticles());
         if (groupBy) groupBy.addEventListener('change', () => this.displayArticles());
 
@@ -260,6 +276,8 @@ class NewsApp {
             if (fromDate) fromDate.value = '';
             if (toDate) toDate.value = '';
             document.querySelectorAll('#sourceCheckboxes input').forEach(cb => cb.checked = true);
+            this.creativeFilter = false;
+            if (creativeToggle) creativeToggle.classList.remove('active');
             this.updateQuickFilterButtons('all');
             this.filterArticles();
         });
@@ -296,7 +314,10 @@ class NewsApp {
 
             const matchesSource = selectedSources.length === 0 || selectedSources.includes(article.source);
 
-            return matchesSearch && matchesRange && matchesSource;
+            const matchesCreative = !this.creativeFilter ||
+                article.tags.some(tag => this.creativeTags.has(tag));
+
+            return matchesSearch && matchesRange && matchesSource && matchesCreative;
         });
 
         this.updateFilterSummary();
