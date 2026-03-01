@@ -634,19 +634,30 @@ h1 {
 }
 
 #showcase-images {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     overflow-y: auto;
     height: 100vh;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 .showcase-panel {
     width: 100%;
     height: 100vh;
     scroll-snap-align: start;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: var(--axyl-black);
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.showcase-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .showcase-panel::after {
@@ -1474,6 +1485,16 @@ h1 {
     background: linear-gradient(135deg, var(--axyl-amber-dark), var(--axyl-amber));
     box-shadow: 0 0 60px var(--axyl-amber-glow);
     position: relative;
+    overflow: hidden;
+}
+
+.about-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
 }
 
 .about-avatar::before {
@@ -1564,6 +1585,14 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+}
+
+.about-avatar-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .about-avatar-large span {
@@ -3202,7 +3231,6 @@ footer a:hover {
     cursor: pointer;
 }
 
-/* Clear Button */
 .an-clear-btn {
     width: 100%;
     padding: 0.625rem 1rem;

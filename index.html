@@ -105,7 +105,9 @@
     <section class="about-section" id="about">
         <div class="about-content">
             <div class="about-image">
-                <div class="about-avatar"></div>
+                <div class="about-avatar">
+                    <img src="https://unavatar.io/x/axylusion" alt="Kol Tregaskes" onerror="this.style.display='none'">
+                </div>
             </div>
             <div class="about-text">
                 <h2>About the Artist</h2>
@@ -260,7 +262,8 @@
                 const showcaseItems = allImages;
 
                 container.innerHTML = showcaseItems.map(item => `
-                    <div class="showcase-panel" style="background-image: url(${item.cdn_url})">
+                    <div class="showcase-panel">
+                        <img src="${item.cdn_url}" alt="${item.name}" loading="lazy">
                         <div class="showcase-panel-info">
                             <span class="showcase-panel-title">${item.name}</span>
                             <span class="showcase-panel-date">${item.created || ''}</span>
